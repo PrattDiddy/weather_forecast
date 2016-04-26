@@ -1,0 +1,29 @@
+<!-- http://openweathermap.org/api -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Weather Forecast</title>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js"></script>
+  <script src="forecast.js"></script>
+</head>
+<body ng-app="forecast">
+  <div ng-controller="testForecast1 as weather_data">
+  	<h1>{{ weather_data.data.city.name }}, {{ weather_data.data.city.country }}</h1>
+    <h1>Current Weather: {{ weather_data.data.list[0].weather[0].main }}</h1>
+    <h1>More Detail: {{ weather_data.data.list[0].weather[0].description }}</h1>
+    <h1>High: {{ weather_data.data.list[0].temp.max }}</h1>
+    <h1>Low: {{ weather_data.data.list[0].temp.min }}</h1>
+  </div>
+  <div ng-controller="testForecast2 as weather_data">
+  	<h1>{{ weather_data.data | json }}</h1>
+  </div>
+  <div ng-controller="testForecast3 as weather_data">
+  	<h1>{{ weather_data.data.city.name }}, {{ weather_data.data.city.country }}</h1>
+    <h1>Current Weather: {{ weather_data.data.list[0].weather[0].main }}</h1>
+    <h1>More Detail: {{ weather_data.data.list[0].weather[0].description }}</h1>
+    <h1>High: {{ weather_data.data.list[0].temp.max }}</h1>
+    <h1>Low: {{ weather_data.data.list[0].temp.min }}</h1>
+  </div>
+</body>
+</html>
