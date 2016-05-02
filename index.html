@@ -3,27 +3,41 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Weather Forecast</title>
+  <title>Weather Forecast using OpenWeatherMap by Ryan Pratt</title>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js"></script>
   <script src="forecast.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/main.css"/>
 </head>
 <body ng-app="forecast">
-  <div ng-controller="testForecast1 as weather_data">
-  	<h1>{{ weather_data.data.city.name }}, {{ weather_data.data.city.country }}</h1>
-    <h1>Current Weather: {{ weather_data.data.list[0].weather[0].main }}</h1>
-    <h1>More Detail: {{ weather_data.data.list[0].weather[0].description }}</h1>
-    <h1>High: {{ weather_data.data.list[0].temp.max }}</h1>
-    <h1>Low: {{ weather_data.data.list[0].temp.min }}</h1>
-  </div>
-  <div ng-controller="testForecast2 as weather_data">
-  	<h1>{{ weather_data.data | json }}</h1>
-  </div>
-  <div ng-controller="testForecast3 as weather_data">
-  	<h1>{{ weather_data.data.city.name }}, {{ weather_data.data.city.country }}</h1>
-    <h1>Current Weather: {{ weather_data.data.list[0].weather[0].main }}</h1>
-    <h1>More Detail: {{ weather_data.data.list[0].weather[0].description }}</h1>
-    <h1>High: {{ weather_data.data.list[0].temp.max }}</h1>
-    <h1>Low: {{ weather_data.data.list[0].temp.min }}</h1>
+  <div ng-controller="forecast as weather_data">
+    <form name="mainForm">
+      <label for="location">Please enter [City], [City, State], [City, Country] or [Zip]:</label>
+      <input type="text" ng-model="location"/>
+      <button ng-click="change()">Update</button>
+      <div ng-show="displayForm">
+        <form name="forecastForm">
+          <!--[TODAY] -->
+          <h1>{{ data_day.name }}, {{ data_day.sys.country }}</h1>
+          <h2>Right now!</h2>
+          {{ data_day.main.temp }} degrees - {{ data_day.weather[0].main }} ({{ data_day.weather[0].description }})
+          <br>
+          High of {{ data_day.main.temp_max }} and Low of {{ data_day.main.temp_min }}
+          <hr width='50%'>
+
+          <!--[7-DAY] -->
+          <h2>7 Day Forecast!</h2>
+          <div ng-repeat="day in data_week.list">
+            <span class="day">
+              <h3>Day {{ $index + 1 }}</h3>
+              {{ day.weather[0].main }} ({{ day.weather[0].description }})
+              <br>
+              High of {{ day.temp.max }} and Low of {{ day.temp.min }}
+              <hr width="25%">  
+            </span>
+          </div>
+        </form>
+      </div>
+    </form>
   </div>
 </body>
 </html>
